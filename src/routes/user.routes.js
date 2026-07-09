@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { loginUser, logoutUser, registerUser } from "../controllers/user.controller.js";
+import { loginUser, logoutUser, registerUser , refreshAccessToken} from "../controllers/user.controller.js";
 import { upload } from "../middlewares/Multer.Middleware.js";
 import { verifyJwt } from "../middlewares/auth.Middleware.js";
 
@@ -12,14 +12,11 @@ router.route("/register").post(
     ]),
     registerUser
 )
-
-router.post("/login", (req, res) => {
-  res.json({ message: "Login route reached" });
-});
  
-// router.route("/login").post(loginUser)
+router.route("/login").post(loginUser)
 
 //secured routes
 router.route("/logout").post(verifyJwt, logoutUser)
+router.route("/refresh-token")
 
 export default router;
