@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { registerUser } from "../controllers/user.controller.js";
+import { loginUser, logoutUser, registerUser } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/Multer.Middleware.js";
-const router  = Router()
+import { verifyJwt } from "../middlewares/auth.Middleware.js";
+
+const router  = Router();
 
 router.route("/register").post(
     upload.fields ([
@@ -11,5 +13,13 @@ router.route("/register").post(
     registerUser
 )
 
+router.post("/login", (req, res) => {
+  res.json({ message: "Login route reached" });
+});
+ 
+// router.route("/login").post(loginUser)
 
-export default router
+//secured routes
+router.route("/logout").post(verifyJwt, logoutUser)
+
+export default router;
