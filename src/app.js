@@ -2,6 +2,9 @@ import express from "express"
 import cookieParser from "cookie-parser"
 import cors from "cors"
 import userRoutes from '../src/routes/user.routes.js'
+import dns from "dns";
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const app = express()
 
